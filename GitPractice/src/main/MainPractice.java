@@ -8,6 +8,7 @@ public class MainPractice {
 		
 		System.out.println("jjj");
 		
+		System.out.println("변경되었나요");
 	}
 
 	
