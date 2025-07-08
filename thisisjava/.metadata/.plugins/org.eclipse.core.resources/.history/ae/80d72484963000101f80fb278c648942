@@ -1,0 +1,15 @@
+package checkTest;
+
+public class Account {
+	
+	int accountN;
+	String name;
+	int money;
+	
+	void Account(int accountN, String name, int money){
+		this.accountN = accountN;
+		this.name = name;
+		this.money = money;
+	}
+
+}

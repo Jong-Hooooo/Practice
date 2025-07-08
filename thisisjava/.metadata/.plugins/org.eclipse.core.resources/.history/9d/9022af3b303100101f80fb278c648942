@@ -1,0 +1,7 @@
+package checkTest;
+
+public interface Rentable <P>{
+	
+	P rent();
+
+}

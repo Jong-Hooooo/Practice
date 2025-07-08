@@ -1,0 +1,136 @@
+package checkTest;
+
+import java.util.Scanner;
+
+public class BankApplication {
+
+	static Scanner scanner = new Scanner(System.in);
+	static Account account[] = new Account[100];
+	static boolean numAccountCheck = true;
+	
+	
+	public static void main(String[] args) {
+
+		boolean run = true;
+		
+		while(run) {
+		System.out.println("-----");
+		System.out.println("1.계좌생성 | 2.계좌목록 | 3.예금 | 4.출금 | 5.종료");
+		System.out.println("------");
+		System.out.println("선택 > ");
+		String num = scanner.nextLine();
+		
+		if(num.equals("1")) {
+			num1();
+			
+		}else if(num.equals("2")) {
+			num2();
+				
+		}else if(num.equals("3")) {
+			num3();
+			
+		}else if (num.equals("4")) {
+			num4();
+			
+		}else if(num.equals("5")) {
+			num5();
+			
+		}else {
+			System.out.println("해당 번호를 다시 입력해 주세요");
+			}
+		}	
+	}
+	
+	//메소드
+	
+	static void num1() {
+		System.out.println("------");
+		System.out.println("계좌생성");
+		System.out.println("------");
+		System.out.println("계좌번호 : ");
+		int accountN = scanner.nextInt();
+		scanner.nextLine();
+		System.out.println("계좌주 : ");
+		String name = scanner.nextLine();
+		System.out.println("초기입금액 : ");
+		int money = scanner.nextInt();
+		scanner.nextLine();
+		
+		Account accountL = new Account(accountN, name, money);
+		
+		for(int i = 0; i < account.length; i++) {
+			if(account[i] == null) {
+				account[i] = accountL;
+				break;
+			}
+		}
+		System.out.println("결과 : 계좌가 생성되었습니다.");	
+	}
+	
+	static void num2() {
+		System.out.println("-----");
+		System.out.println("계좌목록");
+		System.out.println("-----");
+		
+		for(int i = 0; i < account.length; i++) {
+			if(account[i] != null) {
+				System.out.println(account[i].getAccountN()+ "   " + account[i].getName() + "   " + account[i].getMoney());
+			}
+		}
+	}
+	
+	static void num3() {
+		System.out.println("------");
+		System.out.println("예금");
+		System.out.println("------");
+	
+		while(numAccountCheck) {
+			System.out.print("계좌번호 : ");
+			int account3 = scanner.nextInt();
+			scanner.nextLine();
+			for(int i = 0; i<account.length; i++) {
+				if((account[i] != null) &&(account[i].getAccountN() != account3)) {
+					System.out.println("계좌번호를 확인해 주세요");
+					}else if((account[i] != null) &&(account[i].getAccountN() == account3)){
+						System.out.print("예금액 : ");
+						int money3 = scanner.nextInt();
+						scanner.nextLine();
+						account[i].setMoney(account[i].getMoney() + money3);
+						System.out.println("정상적으로 예금에 성공하였습니다");
+						System.out.println("현재 잔액 : " + account[i].getMoney() + "원");
+						
+					}
+					}
+				}
+			}
+	static void num4() {
+		System.out.println("------");
+		System.out.println("출금");
+		System.out.println("-----");
+		System.out.println("계좌번호 :");
+		int account4 = scanner.nextInt();
+		scanner.nextLine();
+		System.out.println("출금액 : ");
+		int money4 = scanner.nextInt();
+		scanner.nextLine();
+		
+		for(int i = 0; i<account.length; i++) {
+			if((account[i] != null) && (account[i].getAccountN() == account4)) {
+				if(account[i].getMoney() >= money4) {
+					account[i].setMoney(account[i].getMoney()-money4);
+					System.out.println("출금이 되었습니다");
+					System.out.println("현재 잔액: : " + account[i].getMoney() + "원");
+				} else {
+					System.out.println("현재 잔액이 부족합니다");
+					System.out.println("현재 잔액 : " + account[i].getMoney() + "원");
+				} 
+			} else if((account[i] != null) && account[i].getAccountN() != account4){
+				System.out.println("계좌번호를 확인해 주세요");
+			}
+		}
+	}
+	
+	static void num5() {
+		System.out.println("프로그램 종료");
+	}
+}

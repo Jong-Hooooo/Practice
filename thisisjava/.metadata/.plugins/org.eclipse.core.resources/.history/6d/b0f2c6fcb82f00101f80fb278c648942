@@ -1,0 +1,22 @@
+package ch12.sec03.exam01;
+
+public class member {
+	public String id;
+	
+	public member(String id) {
+		this.id = id;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof member target) {
+			if(id.equals(target.id)) {
+				
+				return true;
+			}
+		}
+		return false;
+	}
+	
+
+}

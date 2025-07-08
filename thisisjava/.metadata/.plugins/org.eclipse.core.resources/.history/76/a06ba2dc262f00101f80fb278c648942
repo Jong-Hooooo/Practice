@@ -1,0 +1,25 @@
+package ch09.sec05.exam02;
+
+public class AExample {
+
+	public static void main(String[] args) {
+
+		A a = new A();
+		
+		a.useB();
+		
+		
+		//만약에 B 클래스를 바로 불러오고 싶으면
+		
+//		A.B b = a.new B();	
+//		B클래스는 A클래스 안에 속해있는 클래스이다. 그래서 A.B 로 불러오고 현재 위에서 A클래스는 a로 대입해서 객체를 생성한 상태이기 때문에 a.new B();로 써 줘야 한다.
+		
+//		b.field;
+//		b.method();
+//		b.print();
+		
+//		B클래스가 static 이라면
+//		A.B b = new A.B();로 해야 쓸 수 있다.
+	}
+
+}

@@ -1,0 +1,24 @@
+package ch13.sec02.exam01;
+
+public class Product<k,m> {
+	
+	private k kind;
+	private m model;
+	
+	public k getKind() {
+		return kind;
+	}
+	
+	public m getModel() {
+		return model;
+	}
+	
+	public void setKind() {
+		this.kind = kind;
+	}
+	
+	public void setModel() {
+		this.model = model;
+	}
+
+}
