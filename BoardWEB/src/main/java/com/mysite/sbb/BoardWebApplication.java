@@ -11,7 +11,7 @@ public class BoardWebApplication {
 	
 	public static void main(String[] args) {
 
-		SpringApplication.run(BoardWebApplication.class ,args);
+		SpringApplication.run(BoardWebApplication.class, args);
 	}
 
 }

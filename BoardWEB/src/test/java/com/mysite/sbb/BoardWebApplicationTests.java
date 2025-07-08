@@ -13,18 +13,18 @@ import com.mysite.sbb.answer.Answer;
 import com.mysite.sbb.answer.AnswerRepository;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
+import com.mysite.sbb.question.QuestionService;
 
 @SpringBootTest
 class BoardWebApplicationTests {
    
    @Autowired
-   private QuestionRepository questionRepository;
+   private QuestionService questionService;
 
    @Autowired
    private AnswerRepository answerRepository;
    
    @Test
-   @Transactional
    void contextLoads() {
       
 //      Question q1 = new Question();
@@ -122,15 +122,23 @@ class BoardWebApplicationTests {
 //      Optional<Question> oq = this.questionRepository.findById(1);
 //      Question q = oq.get();
 //      this.questionRepository.delete(q);
-      
-      Optional<Question> oq = this.questionRepository.findById(2);
-      Question q = oq.get();
-      
-      Answer a = new Answer();
-      a.setContent("답변은 여러개 등록 가능합니다.");
-      a.setQuestion(q);
-      a.setCreateDate(LocalDateTime.now());
-      this.answerRepository.save(a);
+//      
+//      Optional<Question> oq = this.questionRepository.findById(2);
+//      Question q = oq.get();
+//      
+//      Answer a = new Answer();
+//      a.setContent("답변은 여러개 등록 가능합니다.");
+//      a.setQuestion(q);
+//      a.setCreateDate(LocalDateTime.now());
+//      this.answerRepository.save(a);
+   
+	   
+	   for(int i = 1; i <= 300; i++) {
+		   String subject = String.format("테스트 데이터입니다.:[%03d]", i);
+		   String content = "내용 없음";
+		   this.questionService.create(subject, content);
+	   }
+	   
    }
 
 }

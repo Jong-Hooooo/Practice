@@ -1,9 +1,14 @@
 package com.mysite.sbb.question;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mysite.sbb.DataNotFoundException;
@@ -15,8 +20,11 @@ import groovy.transform.Generated;
 public class QuestionService {
 	private final QuestionRepository questionRepository;
 	
-	public List<Question> GetList(){
-		return this.questionRepository.findAll();
+	public Page<Question> GetList(int page){
+		List<Sort.Order> sorts = new ArrayList<>(); //Sorts - 정렬 기준이 담길 컬렉션
+		sorts.add(Sort.Order.desc("createDate")); //createDate를 기준으로 내림차순 정렬
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		return this.questionRepository.findAll(pageable);
 	}
 	
 	public Question getQuestion(Integer id) {
