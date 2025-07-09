@@ -54,3 +54,5 @@ surefire-reports/
 # Node / frontend (if using)
 node_modules/
 dist/
+/.gitignore
+/main/
