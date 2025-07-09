@@ -11,6 +11,8 @@ public class MainPractice {
 		System.out.println("변경되었나요");
 		
 		System.out.println("123");
+		
+		System.out.println("say");
 	}
 
 	
