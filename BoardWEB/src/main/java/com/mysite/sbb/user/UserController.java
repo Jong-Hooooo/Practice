@@ -23,7 +23,7 @@ public class UserController {
 	}
 
 	@PostMapping("/signup") // PostMapping시 @Valid 필수
-	public String singup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
+	public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) { // 예외처리 안하는 이유 : 에러 이유가 명확하기 때문
 			return "signup_form";
 		}
@@ -42,7 +42,7 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			bindingResult.reject("signupFailed", e.getMessage());
-			return "signup_Form";
+			return "signup_form";
 		}
 		return "redirect:/";
 	}

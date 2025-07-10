@@ -23,11 +23,19 @@ public class SecurityConfig {
 																				// 가능하도록 허용
 				.formLogin(formLogin -> formLogin 
 				.loginPage("/user/login")
-				.defaultSuccessUrl("/")
-		// authorizeHttpRequsets URL경로별 접근 권한 설정
-		// permitAll() requestMatchers로 설정한 경로는 인증없이 누구나 접근 가능하도록 허용
+				.defaultSuccessUrl("/"))
+				.logout ( logout -> logout
+				.logoutRequestMatcher( new AntPathRequestMatcher("/user/logout"))
+				.logoutSuccessUrl("/")
+				.invalidateHttpSession(true));
+						
+				
+				
+				// authorizeHttpRequsets URL경로별 접근 권한 설정
+		
+				// permitAll() requestMatchers로 설정한 경로는 인증없이 누구나 접근 가능하도록 허용
 
-		);
+		
 
 		return http.build(); // 반드시 반환해야함
 	}
