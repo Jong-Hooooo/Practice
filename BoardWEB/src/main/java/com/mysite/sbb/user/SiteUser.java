@@ -25,3 +25,6 @@ public class SiteUser {
    
    private String password;
 }
+
+
+//unique의 역할 : 중복 불가능
