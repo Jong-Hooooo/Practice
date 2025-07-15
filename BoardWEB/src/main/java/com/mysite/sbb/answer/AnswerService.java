@@ -5,27 +5,25 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import com.mysite.sbb.question.Question;
+import com.mysite.sbb.user.SiteUser;
 
-import lombok.Generated;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 
 public class AnswerService {
 
 	public final AnswerRepository answerRepository;
 	
-	public void create(Question question, String content) {
+	public void create(Question question, String content, SiteUser author ) {
 		Answer answer = new Answer();
 		answer.setContent(content);
 		answer.setCreateDate(LocalDateTime.now());
 		answer.setQuestion(question);
+		answer.setAuthor(author);
 		this.answerRepository.save(answer);
-	}
-	
-	@Generated
-	
-	public AnswerService (AnswerRepository answerRepository) {
-		this.answerRepository = answerRepository;
 	}
 	
 }

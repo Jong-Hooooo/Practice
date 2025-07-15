@@ -7,7 +7,8 @@
 				<tr>
 					<td>번호</td>
 					<td>제목</td>
-					<td>날짜</td>
+					<td>작성자</td>
+					<td>작성일시</td>
 				</tr>
 			</thead>
 
@@ -20,8 +21,15 @@
 						class="text-danger small ms-2"
 						th:if="${#lists.size(question.answerList) > 0}"
 						th:text="${#lists.size(question.answerList)}"></span></td>
+						
+						
+					<td><span th:if="${question.author != null}" th:text="${question.author.username}" ></span></td>
+					
+					
 					<td
 						th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+						
+				</tr>		
 				
 			</tbody>
 		</table>
