@@ -24,7 +24,7 @@ public class Answer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer ID;
+	private Integer id;
 	
 	@Column(columnDefinition = "TEXT")
 	private String content;
@@ -37,5 +37,7 @@ public class Answer {
 	@ManyToOne
 	private SiteUser author;
 	
+	
+	private LocalDateTime modifyDateTime;
 	
 }

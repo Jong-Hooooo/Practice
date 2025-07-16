@@ -12,16 +12,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import com.mysite.sbb.DataNotFoundException;
 import com.mysite.sbb.user.SiteUser;
 
-import groovy.transform.Generated;
+import lombok.RequiredArgsConstructor;
 
 
 
 
 @Service
+@RequiredArgsConstructor
 
 public class QuestionService {
 	private final QuestionRepository questionRepository;
@@ -51,9 +51,18 @@ public class QuestionService {
 		this.questionRepository.save(q);
 	}
 	
-	@Generated
-	public QuestionService (QuestionRepository questionRepository) {
-		this.questionRepository = questionRepository;
+	
+	public void modify(Question question, String subject, String content) {
+		question.setSubject(subject);
+		question.setContent(content);
+		question.setModifyDateTime(LocalDateTime.now());
+		this.questionRepository.save(question);
+	}
+	
+	
+	
+	public void delete(Question question) {
+		this.questionRepository.delete(question);
 	}
 	
 }

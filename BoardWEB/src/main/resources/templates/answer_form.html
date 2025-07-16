@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>답변 수정</title>
+</head>
+<body>
+
+<form th:action="@{/answer/modify/{id}(id=${id})}"
+      th:object="${answerForm}" method="post">
+  <textarea class="form-control" th:field="*{content}" rows="10"></textarea>
+  <button type="submit" class="btn btn-primary my-2">수정 완료</button>
+</form>
+
+</body>
+</html>
