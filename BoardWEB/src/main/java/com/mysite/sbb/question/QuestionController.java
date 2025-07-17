@@ -29,93 +29,89 @@ import lombok.RequiredArgsConstructor;
 public class QuestionController {
 	private final QuestionService questionService;
 	private final UserService userService;
-	
-	@GetMapping({"/list"})
+
+	@GetMapping({ "/list" })
 
 	public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
 		Page<Question> paging = this.questionService.GetList(page);
 		model.addAttribute("paging", paging);
 		return "question_list";
 	}
-	
-	
-	
-	
-	@GetMapping({"/detail/{id}"})
+
+	@GetMapping({ "/detail/{id}" })
 
 	public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
 		Question question = this.questionService.getQuestion(id);
 		model.addAttribute("question", question);
 		return "question_detail";
 	}
-	
-	@GetMapping({"/create"})
+
+	@GetMapping({ "/create" })
 	@PreAuthorize("isAuthenticated()")
 
 	public String questionCreate(QuestionForm questionForm) {
 		return "question_form";
 	}
-	
-	@PostMapping({"/create"})
+
+	@PostMapping({ "/create" })
 	@PreAuthorize("isAuthenticated()")
-	
-	public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal ) {
-		if(bindingResult.hasErrors()) {
+
+	public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
+		if (bindingResult.hasErrors()) {
 			return "question_form";
 		}
 		SiteUser siteUser = this.userService.getUser(principal.getName());
 		this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
-	return "redirect:/question/list";
+		return "redirect:/question/list";
 	}
-	
-	
+
 	@GetMapping("/modify/{id}")
 	@PreAuthorize("isAuthenticated()")
 	public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
 		Question question = this.questionService.getQuestion(id);
-		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+
+		if (!question.getAuthor().getUsername().equals(principal.getName())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
 		}
-		
+
 		questionForm.setSubject(question.getSubject());
 		questionForm.setContent(question.getContent());
 		return "question_form";
-		
+
 	}
-	
+
 	@PostMapping("/modify/{id}")
 	@PreAuthorize("isAuthenticated()")
 
-	public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal, @PathVariable("id") Integer id) {
-		if(bindingResult.hasErrors()) {
+	public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal,
+			@PathVariable("id") Integer id) {
+		if (bindingResult.hasErrors()) {
 			return "question_form";
 		}
 		Question question = this.questionService.getQuestion(id);
-		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+
+		if (!question.getAuthor().getUsername().equals(principal.getName())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
 		}
-		
+
 		this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
-	
+
 		return String.format("redirect:/ question/detail/%s", id);
 	}
-	
+
 	@GetMapping("/delete/{id}")
 	@PreAuthorize("isAuthenticated()")
 
 	public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
 		Question question = this.questionService.getQuestion(id);
-		
-		if(!question.getAuthor().getUsername().equals(principal.getName())) {
+
+		if (!question.getAuthor().getUsername().equals(principal.getName())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
 		}
-		
+
 		this.questionService.delete(question);
-		
+
 		return "redirect:/question/list";
 	}
-	
-	
+
 }
